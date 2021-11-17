@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/page/login_page.dart';
+import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -60,7 +61,7 @@ class _LaunchPageState extends State<LaunchPage> {
               top: 30,
               right: 30,
               child: Container(
-                padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.black12,
@@ -71,13 +72,13 @@ class _LaunchPageState extends State<LaunchPage> {
                         text: '$_countdown',
                         style: const TextStyle(
                           fontSize: 18,
-                          color: Colors.blue,
+                          color: ColorRes.color_ffffff,
                         )),
                     const TextSpan(
                         text: '跳过',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.red,
+                          color: ColorRes.color_ffffff,
                         )),
                   ]),
                 ),
