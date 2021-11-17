@@ -72,13 +72,13 @@ class _LaunchPageState extends State<LaunchPage> {
                         text: '$_countdown',
                         style: const TextStyle(
                           fontSize: 18,
-                          color: ColorRes.color_ffffff,
+                          color: ColorRes.color_0xFFFFFFFF,
                         )),
                     const TextSpan(
                         text: '跳过',
                         style: TextStyle(
                           fontSize: 18,
-                          color: ColorRes.color_ffffff,
+                          color: ColorRes.color_0xFFFFFFFF,
                         )),
                   ]),
                 ),
