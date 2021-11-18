@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_jjclound/common/utils/route/route_util.dart';
 import 'package:flutter_jjclound/page/login_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
 class LaunchPage extends StatefulWidget {
+  static const String routerName = "LaunchPage";
   const LaunchPage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
@@ -36,10 +38,12 @@ class _LaunchPageState extends State<LaunchPage> {
       setState(() {
         if (_countdown <= 1) {
 //          Navigator.of(context).pushNamed("/demo1");
-          Navigator.of(context).pop();
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const LoginPage(title: '登录页面',);
-          }));
+//           Navigator.of(context).pop();
+//           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+//             return const LoginPage(title: '登录页面',);
+//           }));
+          RouteUtil.pop(context);
+          RouteUtil.push(context,const LoginPage(title: '登录页面',));
           _countdownTimer!.cancel();
           _countdownTimer = null;
         } else {
@@ -56,7 +60,7 @@ class _LaunchPageState extends State<LaunchPage> {
         body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            Image.asset(ImageRes.asset("launch_image"), fit: BoxFit.fill),
+            Image.asset(ImageRes.imageName("launch_image"), fit: BoxFit.fill),
             Positioned(
               top: 30,
               right: 30,

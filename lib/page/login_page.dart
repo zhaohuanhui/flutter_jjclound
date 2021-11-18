@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jjclound/common/utils/route/route_util.dart';
+import 'package:flutter_jjclound/page/main_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String routerName = "LoginPage";
   const LoginPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
+late BuildContext _buildContext;
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _account = TextEditingController();
   TextEditingController _passWord = TextEditingController();
@@ -21,9 +24,9 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
+    _buildContext=context;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -32,18 +35,19 @@ class _LoginPageState extends State<LoginPage> {
             Stack(
               children: [
                 Image.asset(
-                  ImageRes.asset("login_bg"),
+                  ImageRes.imageName("login_bg"),
                   fit: BoxFit.fill,
                   width: double.infinity,
                   height: 260,
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 50, left: 0, right: 0),
+                  margin: const EdgeInsets.only(
+                      top: 44, left: 35, right: 35, bottom: 0),
                   alignment: Alignment.center,
                   child: Image.asset(
-                    ImageRes.asset("login_bg_text"),
+                    ImageRes.imageName("login_bg_text"),
                     fit: BoxFit.fill,
-                    width: 306,
+                    width: double.infinity,
                     height: 47,
                   ),
                 )
@@ -54,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Image.asset(
-                      ImageRes.asset("shouji"),
+                      ImageRes.imageName("phone"),
                       fit: BoxFit.fill,
                       width: 28,
                       height: 28,
@@ -80,16 +84,19 @@ class _LoginPageState extends State<LoginPage> {
                                   color: ColorRes.color_Text_0xFFC2C2C2,
                                   fontSize: 14),
                               errorText: _errorTextAccount,
-                              errorStyle: TextStyle(color: Colors.redAccent),
+                              errorStyle: TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 14,
+                              ),
                             )))
                   ],
                 )),
             Container(
-                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                margin:  EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Row(
                   children: [
                     Image.asset(
-                      ImageRes.asset("dunpai"),
+                      ImageRes.imageName("password_hint"),
                       fit: BoxFit.fill,
                       width: 28,
                       height: 28,
@@ -113,14 +120,19 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                             hintText: "请输入密码",
                             hintStyle: TextStyle(
+                                fontSize: 14,
                                 color: ColorRes.color_Text_0xFFC2C2C2),
-                            errorText: _errorTextPassWord),
+                            errorText: _errorTextPassWord,
+                            errorStyle: TextStyle(
+                              color: Colors.redAccent,
+                              fontSize: 14,
+                            )),
                       ),
                     )
                   ],
                 )),
             Container(
-              margin: EdgeInsets.fromLTRB(38, 10, 10, 10),
+              margin: EdgeInsets.fromLTRB(20, 10, 0, 10),
               width: double.infinity,
               child: GestureDetector(
                   child: Text('忘记密码?',
@@ -130,28 +142,56 @@ class _LoginPageState extends State<LoginPage> {
             ),
             gradientButton(),
             Container(
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 width: double.infinity,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  verticalDirection: VerticalDirection.down,
                   children: [
                     Container(
-                        width: 108,
+                        width: 100,
                         height: 1,
-                        color: ColorRes.color_Button_0xFF2DC897),
+                        margin: EdgeInsets.fromLTRB(0, 0, 17, 0),
+                        color: ColorRes.color_Button_0xFFEFEFEF),
                     Text(
                       '其他登录方式?',
                       style: TextStyle(
                           color: ColorRes.color_Text_0xFFC2C2C2, fontSize: 12),
                     ),
                     Container(
-                        width: 108,
+                        margin: EdgeInsets.fromLTRB(17, 0, 0, 0),
+                        width: 100,
                         height: 1,
-                        color: ColorRes.color_Button_0xFF2DC897)
+                        color: ColorRes.color_Button_0xFFEFEFEF)
                   ],
-                ))
+                )),
+            Container(
+              width: double.infinity,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1, child: Container(),
+                    ),
+                       Image.asset(
+                          ImageRes.imageName("email"),
+                          fit: BoxFit.fill,
+                          width: 34,
+                          height: 34,
+                        ),
+
+                    Expanded(
+                      flex: 1, child: Container(),
+                    ),
+                     Image.asset(
+                        ImageRes.imageName("wechat"),
+                        fit: BoxFit.fill,
+                        width: 34,
+                        height: 34,
+                      ),
+                    Expanded(
+                      flex: 1, child: Container(),
+                    ),
+                  ],
+                ),
+            )
           ],
         ),
       ),
@@ -161,6 +201,7 @@ class _LoginPageState extends State<LoginPage> {
 
 _inputLogin() {
   print("点击了登录按钮");
+  RouteUtil.push(_buildContext, const MainPage(title: "主页面",));
 }
 
 _forgetPassWord() {
@@ -170,7 +211,7 @@ _forgetPassWord() {
 // 登录按钮
 Widget gradientButton() {
   return Container(
-    margin: EdgeInsets.fromLTRB(30, 35, 30, 0),
+    margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
     decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
           ColorRes.color_Button_0xFF51E6A5,
@@ -190,6 +231,7 @@ Widget gradientButton() {
       },
       child: Container(
         alignment: Alignment.center,
+        width: 335,
         height: 50,
         child: Text(
           '登 录',
