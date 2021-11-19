@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
-import 'package:flutter_jjclound/page/main_page.dart';
+import 'package:flutter_jjclound/page/msg_comfig_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: 100,
                         height: 1,
                         margin: EdgeInsets.fromLTRB(0, 0, 17, 0),
-                        color: ColorRes.color_Button_0xFFEFEFEF),
+                        color: ColorRes.color_Line_0xFFEFEFEF),
                     Text(
                       '其他登录方式?',
                       style: TextStyle(
@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                         margin: EdgeInsets.fromLTRB(17, 0, 0, 0),
                         width: 100,
                         height: 1,
-                        color: ColorRes.color_Button_0xFFEFEFEF)
+                        color: ColorRes.color_Line_0xFFEFEFEF)
                   ],
                 )),
             Container(
@@ -201,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
 
 _inputLogin() {
   print("点击了登录按钮");
-  RouteUtil.push(_buildContext, const MainPage(title: "主页面",));
+  RouteUtil.push(_buildContext, const MsgComfigPage(title: "主页面",));
 }
 
 _forgetPassWord() {

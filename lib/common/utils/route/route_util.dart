@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jjclound/page/main_page.dart';
+import 'package:flutter_jjclound/page/msg_comfig_page.dart';
 
 class RouteUtil{
   /// push
@@ -17,7 +17,7 @@ class RouteUtil{
 
   /// 跳转到main
   static pushMainRoot(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(MainPage.routerName);
+    Navigator.of(context).pushReplacementNamed(MsgComfigPage.routerName);
   }
 
   /// 返回到根路由
