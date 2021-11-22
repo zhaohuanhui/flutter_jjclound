@@ -1,5 +1,12 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jjclound/common/net/api/api_url.dart';
+import 'package:flutter_jjclound/common/net/bean/api_response.dart';
+import 'package:flutter_jjclound/common/net/bean/do_login_bean.dart';
+import 'package:flutter_jjclound/common/net/http_utils.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
 import 'package:flutter_jjclound/page/msg_comfig_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
@@ -14,9 +21,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 late BuildContext _buildContext;
+TextEditingController _account = TextEditingController();
+TextEditingController _passWord = TextEditingController();
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _account = TextEditingController();
-  TextEditingController _passWord = TextEditingController();
   String? _errorTextAccount;
   String? _errorTextPassWord;
 
@@ -201,7 +208,26 @@ class _LoginPageState extends State<LoginPage> {
 
 _inputLogin() {
   print("点击了登录按钮");
-  RouteUtil.push(_buildContext, const MsgComfigPage(title: "主页面",));
+  FormData formData = FormData.fromMap({"name",_account.text, "password",_passWord.text});
+  // Map<String,dynamic> map = Map();
+  // map['name']=_account.text;
+  // map['password']=_passWord.text;
+  // RouteUtil.push(_buildContext, const MsgComfigPage(title: "主页面",));
+  dynamic response =  HttpUtils.post(Api.login,data:formData);
+  print("response:"+response.toString());
+  //   var json = json.decode(response.data);
+  // print("json："+decode.toString());
+
+  // Future<ApiResponse<DoLoginBean>> getReelData() async {
+  //   try {
+      print("response:"+response.toString());
+      // DoLoginBean data = DoLoginBean.fromJson(response);
+      // return ApiResponse.completed(data);
+    // } on DioError catch (e) {
+    //   print(e);
+    //   return ApiResponse.error(e.error);
+    // }
+  // }
 }
 
 _forgetPassWord() {

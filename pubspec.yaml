@@ -34,6 +34,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  #一个强大的Dart Http客户端，支持拦截器，FormData，请求取消，文件下载，超时等。
+  dio: ^4.0.3
+  dio_log: ^2.0.2
+  dio_interceptors: ^0.0.5-nullsafety
+  #Flutter插件用于读取和写入简单的键值对。在iOS上包装NSUserDefaults，在Android上包装SharedPreferences。
+  shared_preferences: ^2.0.6
+  #Flutter插件发现的状态的网络(WiFi和移动/蜂窝)连接的Android和iOS。
+  connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_test:

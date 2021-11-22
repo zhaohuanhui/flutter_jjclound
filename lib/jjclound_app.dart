@@ -1,3 +1,4 @@
+import 'package:dio_log/overlay_draggable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/utils/route/route_const.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
@@ -14,6 +15,7 @@ class _JJCloundAppState extends State<JJCloundApp> with NavigatorObserver {
   @override
   Widget build(BuildContext context) {
     Map<String, WidgetBuilder> routeMapList = RouteConst.routeList;
+    ///display overlay button 显示悬浮按钮
     return MaterialApp(
       title: '广州继教云课堂',
       theme: ThemeData(
