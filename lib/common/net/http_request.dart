@@ -6,7 +6,7 @@ import 'package:flutter_jjclound/common/net/interceptors/net_cache_interceptor.d
 import 'package:flutter_jjclound/common/net/interceptors/error_interceptor.dart';
 import 'package:flutter_jjclound/common/net/interceptors/request_interceptor.dart';
 import 'package:flutter_jjclound/common/net/interceptors/retry_on_connection_change_interceptor.dart';
-
+import 'dart:convert' as convert;
 class Http {
   static final Http _instance = Http._internal();
   factory Http() => _instance;
@@ -142,10 +142,13 @@ class Http {
     if (_authorization != null) {
       requestOptions = requestOptions.copyWith(headers: _authorization);
     }
+    // print("params"+params.toString());
+    final paramJson = Uri.encodeComponent(convert.jsonEncode(params));
+    // print("paramJson"+paramJson.toString());
     var response = await dio.post(
       path,
       data: data,
-      queryParameters: params,
+      queryParameters: {'formMap.parameters': paramJson},
       options: requestOptions,
       cancelToken: cancelToken ?? _cancelToken,
     );

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,21 +7,25 @@ import 'package:flutter_jjclound/common/net/bean/api_response.dart';
 import 'package:flutter_jjclound/common/net/bean/do_login_bean.dart';
 import 'package:flutter_jjclound/common/net/http_utils.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
-import 'package:flutter_jjclound/page/msg_comfig_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
+import 'msg_comfig_page.dart';
+
 class LoginPage extends StatefulWidget {
   static const String routerName = "LoginPage";
+
   const LoginPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 late BuildContext _buildContext;
 TextEditingController _account = TextEditingController();
 TextEditingController _passWord = TextEditingController();
+
 class _LoginPageState extends State<LoginPage> {
   String? _errorTextAccount;
   String? _errorTextPassWord;
@@ -31,9 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    _buildContext=context;
+    _buildContext = context;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -93,13 +97,13 @@ class _LoginPageState extends State<LoginPage> {
                               errorText: _errorTextAccount,
                               errorStyle: TextStyle(
                                 color: Colors.redAccent,
-                                fontSize: 14,
+                                fontSize: 10,
                               ),
                             )))
                   ],
                 )),
             Container(
-                margin:  EdgeInsets.fromLTRB(10, 10, 10, 10),
+                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Row(
                   children: [
                     Image.asset(
@@ -117,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                             //内容变化事件
                             print("密码" + value);
                             if (value.isEmpty) {
-                              _errorTextPassWord = "用户名/手机号不能为空";
+                              _errorTextPassWord = "密码不能为空";
                             } else {
                               _errorTextPassWord = "";
                             }
@@ -132,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                             errorText: _errorTextPassWord,
                             errorStyle: TextStyle(
                               color: Colors.redAccent,
-                              fontSize: 14,
+                              fontSize: 10,
                             )),
                       ),
                     )
@@ -172,32 +176,34 @@ class _LoginPageState extends State<LoginPage> {
                 )),
             Container(
               width: double.infinity,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1, child: Container(),
-                    ),
-                       Image.asset(
-                          ImageRes.imageName("email"),
-                          fit: BoxFit.fill,
-                          width: 34,
-                          height: 34,
-                        ),
-
-                    Expanded(
-                      flex: 1, child: Container(),
-                    ),
-                     Image.asset(
-                        ImageRes.imageName("wechat"),
-                        fit: BoxFit.fill,
-                        width: 34,
-                        height: 34,
-                      ),
-                    Expanded(
-                      flex: 1, child: Container(),
-                    ),
-                  ],
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  Image.asset(
+                    ImageRes.imageName("email"),
+                    fit: BoxFit.fill,
+                    width: 34,
+                    height: 34,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  Image.asset(
+                    ImageRes.imageName("wechat"),
+                    fit: BoxFit.fill,
+                    width: 34,
+                    height: 34,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -208,26 +214,40 @@ class _LoginPageState extends State<LoginPage> {
 
 _inputLogin() {
   print("点击了登录按钮");
-  FormData formData = FormData.fromMap({"name",_account.text, "password",_passWord.text});
-  // Map<String,dynamic> map = Map();
-  // map['name']=_account.text;
-  // map['password']=_passWord.text;
-  // RouteUtil.push(_buildContext, const MsgComfigPage(title: "主页面",));
-  dynamic response =  HttpUtils.post(Api.login,data:formData);
-  print("response:"+response.toString());
-  //   var json = json.decode(response.data);
-  // print("json："+decode.toString());
+  _loginPost();
+}
 
-  // Future<ApiResponse<DoLoginBean>> getReelData() async {
-  //   try {
-      print("response:"+response.toString());
-      // DoLoginBean data = DoLoginBean.fromJson(response);
-      // return ApiResponse.completed(data);
-    // } on DioError catch (e) {
-    //   print(e);
-    //   return ApiResponse.error(e.error);
-    // }
-  // }
+int compare(String str1, String str2) {
+  return Comparable.compare(str1, str2);
+}
+
+Future<ApiResponse<DoLoginBean>> _loginPost() async {
+  try {
+    Map<String, dynamic> map = Map();
+    map['IOS_FLAG'] = "N";
+    map['userCode'] = _account.text;
+    map['APP_ID'] = "APP007";
+    map['userPsw'] = "lan123456!!";
+    dynamic response = await HttpUtils.post(Api.login, params: map);
+    Map<String, dynamic> responseData =
+        jsonDecode(Uri.decodeComponent(response));
+    DoLoginBean data = DoLoginBean.fromJson(responseData);
+    print("data:" + data.toJson().toString());
+    if (data.login.toString()== "N") {
+      print("登录失败");
+    } else {
+      print("登录成功");
+      RouteUtil.push(
+          _buildContext,
+          const MsgComfigPage(
+            title: "主页面",
+          ));
+    }
+    return ApiResponse.completed(data);
+  } on DioError catch (e) {
+    print(e);
+    return ApiResponse.error(e.error);
+  }
 }
 
 _forgetPassWord() {
