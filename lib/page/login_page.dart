@@ -9,7 +9,6 @@ import 'package:flutter_jjclound/common/net/http_utils.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
-
 import 'msg_comfig_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,11 +24,9 @@ class LoginPage extends StatefulWidget {
 late BuildContext _buildContext;
 TextEditingController _account = TextEditingController();
 TextEditingController _passWord = TextEditingController();
-
+String? _errorTextAccount;
+String? _errorTextPassWord;
 class _LoginPageState extends State<LoginPage> {
-  String? _errorTextAccount;
-  String? _errorTextPassWord;
-
   @override
   void initState() {
     super.initState();
@@ -39,174 +36,175 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     _buildContext = context;
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Stack(
+      body: SingleChildScrollView(
+        child: Container(
+            width: double.infinity,
+            child: Column(
               children: [
-                Image.asset(
-                  ImageRes.imageName("login_bg"),
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: 260,
+                Stack(
+                  children: [
+                    Image.asset(
+                      ImageRes.imageName("login_bg"),
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: 260,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 44, left: 35, right: 35, bottom: 0),
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        ImageRes.imageName("login_bg_text"),
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: 47,
+                      ),
+                    )
+                  ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(
-                      top: 44, left: 35, right: 35, bottom: 0),
+                    margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: TextField(
+                                maxLines: 1,
+                                controller: _account,
+                                onChanged: (value) {
+                                  this.setState(() {
+                                    //内容变化事件
+                                    print("用户名" + value);
+                                    if (value.isEmpty) {
+                                      _errorTextAccount = "用户名/手机号不能为空";
+                                    } else {
+                                      _errorTextAccount = "";
+                                    }
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  prefixIcon:Image(image: AssetImage(ImageRes.imageName("phone")),width: 28,height: 28,fit: BoxFit.fill),
+                                  prefixIconConstraints: BoxConstraints(minWidth: 28,minHeight: 28),
+                                  hintText: "请输入用户名/手机号",
+                                  hintStyle: TextStyle(
+                                      color: ColorRes.color_Text_0xFFC2C2C2,
+                                      fontSize: 14),
+                                  errorText: _errorTextAccount,
+                                  errorStyle: TextStyle(
+                                    color: Colors.redAccent,
+                                    fontSize: 10,
+                                  ),
+                                )))
+                      ],
+                    )),
+                Container(
+                    margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            maxLines: 1,
+                            controller: _passWord,
+                            onChanged: (value) {
+                              this.setState(() {
+                                //内容变化事件
+                                print("密码" + value);
+                                if (value.isEmpty) {
+                                  _errorTextPassWord = "密码不能为空";
+                                } else {
+                                  _errorTextPassWord = "";
+                                }
+                              });
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                prefixIcon:Image(image: AssetImage(ImageRes.imageName("password")),width: 28,height: 28,fit: BoxFit.fill,),
+                                prefixIconConstraints: BoxConstraints(minWidth: 28,minHeight: 28),
+                                hintText: "请输入密码",
+                                hintStyle: TextStyle(
+                                    fontSize: 14,
+                                    color: ColorRes.color_Text_0xFFC2C2C2),
+                                errorText: _errorTextPassWord,
+                                errorStyle: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontSize: 10,
+                                )),
+                          ),
+                        )
+                      ],
+                    )),
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  width: double.infinity,
+                  child: GestureDetector(
+                      child: Text('忘记密码?',
+                          style: TextStyle(
+                              color: ColorRes.color_Text_0xFF8F8F8F, fontSize: 12)),
+                      onTap: _forgetPassWord),
+                ),
+                gradientButton(),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            width: 10,
+                            height: 1,
+                            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            color: ColorRes.color_Line_0xFFEFEFEF),
+                        flex: 1,
+                      ),
+                      Text(
+                        '其他登录方式',
+                        style: TextStyle(
+                            color: ColorRes.color_Text_0xFFC2C2C2, fontSize: 12),
+                      ),
+                      Expanded(
+                        child: Container(
+                            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            width: 10,
+                            height: 1,
+                            color: ColorRes.color_Line_0xFFEFEFEF),
+                        flex: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    ImageRes.imageName("login_bg_text"),
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    height: 47,
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(),
+                      ),
+                      Image.asset(
+                        ImageRes.imageName("email"),
+                        fit: BoxFit.fill,
+                        width: 34,
+                        height: 34,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(),
+                      ),
+                      Image.asset(
+                        ImageRes.imageName("wechat"),
+                        fit: BoxFit.fill,
+                        width: 34,
+                        height: 34,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(),
+                      ),
+                    ],
                   ),
                 )
               ],
             ),
-            Container(
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      ImageRes.imageName("phone"),
-                      fit: BoxFit.fill,
-                      width: 28,
-                      height: 28,
-                    ),
-                    Expanded(
-                        child: TextField(
-                            maxLines: 1,
-                            controller: _account,
-                            onChanged: (value) {
-                              this.setState(() {
-                                //内容变化事件
-                                print("用户名" + value);
-                                if (value.isEmpty) {
-                                  _errorTextAccount = "用户名/手机号不能为空";
-                                } else {
-                                  _errorTextAccount = "";
-                                }
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: "请输入用户名/手机号",
-                              hintStyle: TextStyle(
-                                  color: ColorRes.color_Text_0xFFC2C2C2,
-                                  fontSize: 14),
-                              errorText: _errorTextAccount,
-                              errorStyle: TextStyle(
-                                color: Colors.redAccent,
-                                fontSize: 10,
-                              ),
-                            )))
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      ImageRes.imageName("password_hint"),
-                      fit: BoxFit.fill,
-                      width: 28,
-                      height: 28,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        maxLines: 1,
-                        controller: _passWord,
-                        onChanged: (value) {
-                          this.setState(() {
-                            //内容变化事件
-                            print("密码" + value);
-                            if (value.isEmpty) {
-                              _errorTextPassWord = "密码不能为空";
-                            } else {
-                              _errorTextPassWord = "";
-                            }
-                          });
-                        },
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: "请输入密码",
-                            hintStyle: TextStyle(
-                                fontSize: 14,
-                                color: ColorRes.color_Text_0xFFC2C2C2),
-                            errorText: _errorTextPassWord,
-                            errorStyle: TextStyle(
-                              color: Colors.redAccent,
-                              fontSize: 10,
-                            )),
-                      ),
-                    )
-                  ],
-                )),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 0, 10),
-              width: double.infinity,
-              child: GestureDetector(
-                  child: Text('忘记密码?',
-                      style: TextStyle(
-                          color: ColorRes.color_Text_0xFF8F8F8F, fontSize: 12)),
-                  onTap: _forgetPassWord),
-            ),
-            gradientButton(),
-            Container(
-                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                width: double.infinity,
-                child: Row(
-                  children: [
-                    Container(
-                        width: 100,
-                        height: 1,
-                        margin: EdgeInsets.fromLTRB(0, 0, 17, 0),
-                        color: ColorRes.color_Line_0xFFEFEFEF),
-                    Text(
-                      '其他登录方式?',
-                      style: TextStyle(
-                          color: ColorRes.color_Text_0xFFC2C2C2, fontSize: 12),
-                    ),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(17, 0, 0, 0),
-                        width: 100,
-                        height: 1,
-                        color: ColorRes.color_Line_0xFFEFEFEF)
-                  ],
-                )),
-            Container(
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Image.asset(
-                    ImageRes.imageName("email"),
-                    fit: BoxFit.fill,
-                    width: 34,
-                    height: 34,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Image.asset(
-                    ImageRes.imageName("wechat"),
-                    fit: BoxFit.fill,
-                    width: 34,
-                    height: 34,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+      )
       ),
     );
   }
@@ -233,7 +231,7 @@ Future<ApiResponse<DoLoginBean>> _loginPost() async {
         jsonDecode(Uri.decodeComponent(response));
     DoLoginBean data = DoLoginBean.fromJson(responseData);
     print("data:" + data.toJson().toString());
-    if (data.login.toString()== "N") {
+    if (data.login.toString() == "N") {
       print("登录失败");
     } else {
       print("登录成功");
@@ -257,7 +255,7 @@ _forgetPassWord() {
 // 登录按钮
 Widget gradientButton() {
   return Container(
-    margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+    margin: EdgeInsets.fromLTRB(20, 50, 20, 10),
     decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
           ColorRes.color_Button_0xFF51E6A5,
@@ -277,7 +275,7 @@ Widget gradientButton() {
       },
       child: Container(
         alignment: Alignment.center,
-        width: 335,
+        width: double.infinity,
         height: 50,
         child: Text(
           '登 录',
