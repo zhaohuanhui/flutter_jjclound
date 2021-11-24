@@ -7,6 +7,7 @@ import 'package:flutter_jjclound/common/net/bean/api_response.dart';
 import 'package:flutter_jjclound/common/net/bean/do_login_bean.dart';
 import 'package:flutter_jjclound/common/net/http_utils.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
+import 'package:flutter_jjclound/common/widget/toast/toast_util.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 import 'msg_comfig_page.dart';
@@ -211,8 +212,12 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 _inputLogin() {
-  print("点击了登录按钮");
-  _loginPost();
+  ToastUtil.showLoading();
+  Future.delayed(Duration(milliseconds: 500), () {
+    print("点击了登录按钮");
+    _loginPost();
+    ToastUtil.dismiss();
+  });
 }
 
 int compare(String str1, String str2) {
@@ -225,7 +230,7 @@ Future<ApiResponse<DoLoginBean>> _loginPost() async {
     map['IOS_FLAG'] = "N";
     map['userCode'] = _account.text;
     map['APP_ID'] = "APP007";
-    map['userPsw'] = "lan123456!!";
+    map['userPsw'] = _passWord.text;
     dynamic response = await HttpUtils.post(Api.login, params: map);
     Map<String, dynamic> responseData =
         jsonDecode(Uri.decodeComponent(response));
@@ -233,7 +238,9 @@ Future<ApiResponse<DoLoginBean>> _loginPost() async {
     print("data:" + data.toJson().toString());
     if (data.login.toString() == "N") {
       print("登录失败");
+      ToastUtil.showError("密码或账号输入错误");
     } else {
+      ToastUtil.showSuccess("登录成功");
       print("登录成功");
       RouteUtil.push(
           _buildContext,
@@ -244,6 +251,7 @@ Future<ApiResponse<DoLoginBean>> _loginPost() async {
     return ApiResponse.completed(data);
   } on DioError catch (e) {
     print(e);
+    ToastUtil.showError(e.message+e.error);
     return ApiResponse.error(e.error);
   }
 }

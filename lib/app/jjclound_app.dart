@@ -1,5 +1,6 @@
 import 'package:dio_log/overlay_draggable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_jjclound/common/utils/route/route_const.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
 
@@ -35,6 +36,9 @@ class _JJCloundAppState extends State<JJCloundApp> with NavigatorObserver {
       initialRoute:RouteConst.LaunchRoute,
       onUnknownRoute: RouteUtil.unknownRoute,
       navigatorObservers: [this],
+      builder: (ctx, child) {
+        return FlutterEasyLoading(child: child);
+      },
     );
   }
 }

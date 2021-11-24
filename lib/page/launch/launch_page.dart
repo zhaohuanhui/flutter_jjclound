@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
-import 'package:flutter_jjclound/page/login_page.dart';
+import 'package:flutter_jjclound/page/login/login_page.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/net/http_utils.dart';
-import 'package:flutter_jjclound/common/utils/sp/SpUtil.dart';
-import 'common/net/api/api_url.dart';
+import 'package:flutter_jjclound/common/utils/sp/sp_util.dart';
+import 'package:flutter_jjclound/common/widget/toast/toast_util.dart';
+import '../common/net/api/api_url.dart';
 import 'jjclound_app.dart';
 
 void main() {
@@ -11,6 +12,7 @@ void main() {
   HttpUtils.init(
     baseUrl: Api.baseUrl,
   );
+   ToastUtil.setToastStyle();
   runApp(const JJCloundApp());
 }
 

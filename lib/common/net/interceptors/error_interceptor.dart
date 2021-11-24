@@ -35,7 +35,7 @@ class ErrorInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler errCb) async {
-    // 自定义一个socket实例，因为dio原生的实例，message属于是只读的
+    /// 自定义一个socket实例，因为dio原生的实例，message属于是只读的
     if (err.error is SocketException) {
       err.error = MyDioSocketException(
         err.message,

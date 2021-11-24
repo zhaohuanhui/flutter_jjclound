@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names, avoid_renaming_method_parameters
 import 'dart:collection';
 import 'package:dio/dio.dart';
-import 'package:flutter_jjclound/common/utils/sp/SpUtil.dart';
+import 'package:flutter_jjclound/common/utils/sp/sp_util.dart';
 // import 'package:flutter_eyepetizer/utils/storage.dart';
 
 const int CACHE_MAXAGE = 86400000;

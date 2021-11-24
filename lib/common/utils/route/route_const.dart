@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jjclound/page/launch_page.dart';
-import 'package:flutter_jjclound/page/login_page.dart';
-import 'package:flutter_jjclound/page/msg_comfig_page.dart';
+import 'package:flutter_jjclound/page/launch/launch_page.dart';
+import 'package:flutter_jjclound/page/login/login_page.dart';
+import 'package:flutter_jjclound/page/login/msg_comfig_page.dart';
 
 class RouteConst{
   // 初始路由

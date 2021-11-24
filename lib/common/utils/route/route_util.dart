@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jjclound/page/msg_comfig_page.dart';
+import 'package:flutter_jjclound/page/login/msg_comfig_page.dart';
 
 class RouteUtil{
   /// push
@@ -10,7 +10,7 @@ class RouteUtil{
     ));
   }
 
-  //pop
+  ///pop
   static pop(BuildContext context) {
     Navigator.of(context).pop();
   }
