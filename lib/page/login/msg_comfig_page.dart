@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
+import 'package:flutter_jjclound/common/widget/dialog/phone_verification_dialog.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
 
@@ -400,6 +401,7 @@ class _MsgComfigPageState extends State<MsgComfigPage> {
                                         ),
                                       ),
                                       onTap: (){
+                                        PhoneVerificationDialog().show(context);
                                         print("点击了手机号码");
                                       },),
                                       Container(

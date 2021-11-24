@@ -236,17 +236,24 @@ Future<ApiResponse<DoLoginBean>> _loginPost() async {
         jsonDecode(Uri.decodeComponent(response));
     DoLoginBean data = DoLoginBean.fromJson(responseData);
     print("data:" + data.toJson().toString());
-    if (data.login.toString() == "N") {
-      print("登录失败");
-      ToastUtil.showError("密码或账号输入错误");
-    } else {
-      ToastUtil.showSuccess("登录成功");
-      print("登录成功");
-      RouteUtil.push(
-          _buildContext,
-          const MsgComfigPage(
-            title: "主页面",
-          ));
+    if(_account.text.isEmpty){
+      ToastUtil.showError("账号不能为空");
+    }else if(_passWord.text.isEmpty){
+      ToastUtil.showError("密码不能为空");
+    }
+    else{
+      if (data.login.toString() == "N") {
+        print("登录失败");
+        ToastUtil.showError("密码或账号输入错误");
+      } else {
+        ToastUtil.showSuccess("登录成功");
+        print("登录成功");
+        RouteUtil.push(
+            _buildContext,
+            const MsgComfigPage(
+              title: "主页面",
+            ));
+      }
     }
     return ApiResponse.completed(data);
   } on DioError catch (e) {
