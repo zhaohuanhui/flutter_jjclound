@@ -41,7 +41,7 @@ dependencies:
   #一个干净和轻量的加载/吐司小部件颤，容易使用没有上下文，支持iOS, Android和Web
   flutter_easyloading: ^3.0.3
   #Flutter插件用于读取和写入简单的键值对。在iOS上包装NSUserDefaults，在Android上包装SharedPreferences。
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.9
   #Flutter插件发现的状态的网络(WiFi和移动/蜂窝)连接的Android和iOS。
   connectivity: ^3.0.6
 

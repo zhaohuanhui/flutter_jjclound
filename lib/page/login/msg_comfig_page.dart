@@ -1,8 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jjclound/common/utils/route/route_util.dart';
 import 'package:flutter_jjclound/common/widget/dialog/phone_verification_dialog.dart';
 import 'package:flutter_jjclound/res/color_res.dart';
 import 'package:flutter_jjclound/res/image_res.dart';
+
+import 'choose_training_program_page.dart';
 
 class MsgComfigPage extends StatefulWidget {
   static const String routerName = "MsgComfigPage";
@@ -129,7 +132,11 @@ class _MsgComfigPageState extends State<MsgComfigPage> {
                                       style: TextStyle(
                                           fontSize: 12,
                                           color:
-                                              ColorRes.color_Text_0xFF5169B9)),
+                                              ColorRes.color_Text_0xFF5169B9),
+                                    recognizer: TapGestureRecognizer()..onTap=(){
+                                        print("点击了核心信息");
+                                    }
+                                  ),
                                   TextSpan(
                                       text:
                                           "办理办法；所在单位修改请联系校管理员完成教师调动操作；其余信息可点击修改，提交修改后需校管理员审核。",
@@ -727,7 +734,7 @@ _back() {
 }
 _msgConfig() {
   print("点击了信息确认按钮");
-  RouteUtil.push(_buildContext, const MsgComfigPage(title: "主页面",));
+  RouteUtil.push(_buildContext, const ChooseTrainingProgramPage(title: "选择培训项目",));
 }
 
 // 登录按钮
