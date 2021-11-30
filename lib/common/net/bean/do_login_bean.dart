@@ -13,8 +13,8 @@
 /// MOBILE_PHONE : "15814513372"
 /// EMAIL : "1587032750@qq.com"
 /// PHOTO_PATH : "http://file.ttcn.cn/upload/downloadFile.do?uploadInfoId=437ea81a060346a2b50bac92fcc8aba1"
-class DoLoginBean {
-  DoLoginBean({
+class LoginBean {
+  LoginBean({
       String? subject, 
       String? userid, 
       String? grade, 
@@ -47,7 +47,7 @@ class DoLoginBean {
     _photopath = photopath;
 }
 
-  DoLoginBean.fromJson(dynamic json) {
+  LoginBean.fromJson(dynamic json) {
     _subject = json['SUBJECT'];
     _userid = json['USER_ID'];
     _grade = json['GRADE'];

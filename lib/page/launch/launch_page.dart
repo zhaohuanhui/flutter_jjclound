@@ -57,40 +57,68 @@ class _LaunchPageState extends State<LaunchPage> {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Image.asset(ImageRes.imageName("launch_image"), fit: BoxFit.fill),
-            Positioned(
-              top: 30,
-              right: 30,
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.black12,
-                ),
-                child: RichText(
-                  text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: '$_countdown',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: ColorRes.color_0xFFFFFFFF,
-                        )),
-                    const TextSpan(
-                        text: '跳过',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: ColorRes.color_0xFFFFFFFF,
-                        )),
-                  ]),
-                ),
-              ),
-            )
-          ],
-        ),
+        body: NewWidget(countdown: _countdown),
       ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key? key,
+    required int countdown,
+  }) : _countdown = countdown, super(key: key);
+
+  final int _countdown;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image.asset(ImageRes.imageName("launch_image"), fit: BoxFit.fill),
+        Positioned(
+          top: 30,
+          right: 30,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.black12,
+            ),
+            child: NewWidget2(countdown: _countdown),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class NewWidget2 extends StatelessWidget {
+  const NewWidget2({
+    Key? key,
+    required int countdown,
+  }) : _countdown = countdown, super(key: key);
+
+  final int _countdown;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(children: <TextSpan>[
+        TextSpan(
+            text: '$_countdown',
+            style: const TextStyle(
+              fontSize: 18,
+              color: ColorRes.color_0xFFFFFFFF,
+            )),
+        const TextSpan(
+            text: '跳过',
+            style: TextStyle(
+              fontSize: 18,
+              color: ColorRes.color_0xFFFFFFFF,
+            )),
+      ]),
     );
   }
 }

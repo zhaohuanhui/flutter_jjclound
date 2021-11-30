@@ -260,10 +260,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
 ///忘记密码
 _forgetPassWord() {
   print("点击了忘记密码?");
 }
+
 /// 登录按钮
 _inputLogin() {
   ToastUtil.showLoading();
@@ -275,7 +277,7 @@ _inputLogin() {
 }
 
 /// 登录请求
-Future<ApiResponse<DoLoginBean>?> _loginPost() async {
+Future<ApiResponse<LoginBean>?> _loginPost() async {
   try {
     Map<String, dynamic> map = Map();
     map['IOS_FLAG'] = "N";
@@ -285,7 +287,7 @@ Future<ApiResponse<DoLoginBean>?> _loginPost() async {
     dynamic response = await HttpUtils.post(Api.login, params: map);
     Map<String, dynamic> responseData =
         jsonDecode(Uri.decodeComponent(response));
-    DoLoginBean data = DoLoginBean.fromJson(responseData);
+    LoginBean data = LoginBean.fromJson(responseData);
     print("data:" + data.toJson().toString());
     // if(_account.text.isEmpty){
     //   ToastUtil.showError("账号不能为空");
